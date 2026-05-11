@@ -138,6 +138,20 @@ e2e/                 playwright smoke
 
 ---
 
+## Deployment checklist
+
+Hand this off to future-you when deploying. Tick each box.
+
+- [ ] Neon project created, copied the **pooled** connection string
+- [ ] `DATABASE_URL='…' DB_DRIVER=postgres npm run db:migrate` ran clean
+- [ ] `DATABASE_URL='…' DB_DRIVER=postgres npm run db:seed` ran clean
+- [ ] `npm run set-pin -- --print-only` produced a fresh bcrypt hash
+- [ ] Vercel env vars set: `DATABASE_URL`, `SESSION_SECRET`, `PIN_HASH`, `CRON_SECRET`, `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `BLOB_READ_WRITE_TOKEN`
+- [ ] `vercel.json` cron showed up under Vercel → Crons (every-minute schedule)
+- [ ] iPhone: Share → Add to Home Screen worked; PWA installed
+- [ ] Settings → Enable push on this device → granted; Send test push received
+- [ ] At least one habit toggled and the streak counter rendered correctly
+
 ## Things to revisit later
 
 - **Light-mode toggle** — dark mode only in v1 (PRD §13); the brand tokens are set up so adding light mode means defining `:root.light { ... }` in `src/app/globals.css`.
