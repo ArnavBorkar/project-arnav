@@ -49,3 +49,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export const isSqlite = driver === 'sqlite';
+
+/** Returns a value suitable for binding to a timestamp column in either dialect. */
+export function nowForTimestamp(): Date | string {
+  return isSqlite ? new Date().toISOString() : new Date();
+}

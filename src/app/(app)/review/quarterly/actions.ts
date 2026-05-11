@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { eq } from 'drizzle-orm';
 import { z } from 'zod';
-import { db } from '../../../../../db/client';
+import { db, nowForTimestamp } from '../../../../../db/client';
 import { quarterlyReviews } from '../../../../../db/schema';
 import { uploadPhoto } from '@/lib/storage';
 
@@ -61,7 +61,7 @@ export async function submitQuarterlyReview(formData: FormData) {
     nextQuarterTheme: parsed.nextQuarterTheme ?? null,
     photoFrontUrl: frontUrl ?? existing[0]?.photoFrontUrl ?? null,
     photoSideUrl: sideUrl ?? existing[0]?.photoSideUrl ?? null,
-    submittedAt: new Date() as unknown as Date,
+    submittedAt: nowForTimestamp() as unknown as Date,
   };
 
   if (existing.length > 0) {

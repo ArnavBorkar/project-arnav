@@ -144,7 +144,7 @@ export async function toggleHabitLog(habitId: number, dateISO: string, completed
   if (existing.length > 0) {
     await db
       .update(dailyLogs)
-      .set({ completed, loggedAt: new Date() as unknown as Date })
+      .set({ completed })
       .where(eq(dailyLogs.id, existing[0].id));
     return;
   }
@@ -188,7 +188,6 @@ export async function incrementHabitLog(habitId: number, dateISO: string, delta:
     .set({
       value: next as unknown as string,
       completed: target != null ? next >= target : !!existing[0].completed,
-      loggedAt: new Date() as unknown as Date,
     })
     .where(eq(dailyLogs.id, existing[0].id));
 }

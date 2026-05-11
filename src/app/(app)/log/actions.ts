@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { eq } from 'drizzle-orm';
 import { z } from 'zod';
-import { db } from '../../../../db/client';
+import { db, nowForTimestamp } from '../../../../db/client';
 import {
   gymSessions,
   exerciseSets,
@@ -64,7 +64,7 @@ const MealSchema = z.object({
 export async function logMeal(input: z.infer<typeof MealSchema>) {
   const parsed = MealSchema.parse(input);
   await db.insert(meals).values({
-    datetime: new Date() as unknown as Date,
+    datetime: nowForTimestamp() as unknown as Date,
     type: parsed.type,
     onTime: parsed.onTime,
     proteinHit: parsed.proteinHit,

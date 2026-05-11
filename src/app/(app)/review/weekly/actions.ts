@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { eq } from 'drizzle-orm';
 import { z } from 'zod';
-import { db } from '../../../../../db/client';
+import { db, nowForTimestamp } from '../../../../../db/client';
 import { weeklyReviews } from '../../../../../db/schema';
 
 const Schema = z.object({
@@ -29,7 +29,7 @@ export async function submitWeeklyReview(input: z.infer<typeof Schema>) {
     q3StreakAtRisk: parsed.q3StreakAtRisk ?? null,
     q4ShipTarget: parsed.q4ShipTarget ?? null,
     q5CallOverdue: parsed.q5CallOverdue ?? null,
-    submittedAt: new Date() as unknown as Date,
+    submittedAt: nowForTimestamp() as unknown as Date,
   };
 
   if (existing.length > 0) {
