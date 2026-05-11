@@ -126,6 +126,24 @@ export default async function TodayPage() {
         )}
       </section>
 
+      {/* Review entry points */}
+      <section className="mt-2 grid grid-cols-2 gap-2 pb-2">
+        <a
+          href="/review/weekly"
+          className="rounded-2xl border border-border bg-surface px-3 py-3 text-xs hover:border-primary/40"
+        >
+          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Weekly</div>
+          <div className="text-sm">Sunday review</div>
+        </a>
+        <a
+          href="/review/quarterly"
+          className="rounded-2xl border border-border bg-surface px-3 py-3 text-xs hover:border-primary/40"
+        >
+          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Quarterly</div>
+          <div className="text-sm">Q-review &amp; photos</div>
+        </a>
+      </section>
+
       <QuickLog
         waterHabitId={waterHabit?.id ?? null}
         pagesHabitId={pagesHabit?.id ?? null}
