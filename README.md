@@ -88,7 +88,13 @@ npm run dev                   # http://localhost:3000
 7. **Open the app**. Enter your PIN. On iPhone, Share → Add to Home Screen to install as a PWA — that's the only way to receive push notifications on iOS.
 8. In Settings → Notifications, tap **Enable push on this device**, then **Send test push** to verify.
 
-The Vercel cron schedule lives in `vercel.json` — it fires `/api/cron/reminders` every minute and self-throttles via quiet-hours and "already-logged" checks.
+**Scheduling the cron** — Vercel Hobby (free) caps crons at once-per-day, so we don't ship a `vercel.json` cron. Use a free external pinger instead:
+
+- **cron-job.org** (recommended): create an account → add a job pointing at `https://your-app.vercel.app/api/cron/reminders`, schedule `every 1 minute`, add header `Authorization: Bearer YOUR_CRON_SECRET`. Done.
+- **GitHub Actions** (if you don't want another account): add `.github/workflows/ping-cron.yml` with a 5-min `schedule:` trigger that curls the endpoint. Granularity is 5 min and runs can be delayed.
+- **Upgrade Vercel to Pro** ($20/mo): re-add a `vercel.json` with `{ "crons": [{ "path": "/api/cron/reminders", "schedule": "* * * * *" }] }`.
+
+The endpoint at `/api/cron/reminders` self-throttles via quiet-hours and "already-logged" checks, so it's safe to call as often as the scheduler allows.
 
 ---
 
